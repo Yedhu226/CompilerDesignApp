@@ -24,14 +24,15 @@ import java.util.List;
  * @author yedhu
  */
 public class Grammar {
-    private List<Production> Rules=new LinkedList<>();
+    private List<Rule> Rule_List=new LinkedList<>();
 
-    public List<Production> getRules() {
-        return Rules;
+    public List<Rule> getRule_List() {
+        return Rule_List;
     }
 
-    public void setRules(List<Production> Rules) {
-        this.Rules = Rules;
+    public void setRule_List(List<Rule> Rule_List) {
+        this.Rule_List = Rule_List;
     }
+
     
 }

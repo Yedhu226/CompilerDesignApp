@@ -16,40 +16,25 @@
  */
 package cd.prog.grammar;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  *
  * @author yedhu
  */
-public class Production {
+public class Element {
 
-    private String Symbol;
-    private List<String> Prods = new LinkedList<>();
+    private final Character symbol;
+    private final boolean Terminal;
 
-    public Production(String in){
-        String[] a=in.split(">");
-        this.Symbol=a[0];
-        String b=a[1];
-        a=b.split("\\|");
-        this.Prods.addAll(Arrays.asList(a));
+    public Element(Character in) {
+        this.symbol = in;
+        this.Terminal=Character.isLowerCase(in);
     }
 
-    public String getSymbol() {
-        return Symbol;
+    public Character getSymbol() {
+        return symbol;
     }
 
-    public void setSymbol(String Symbol) {
-        this.Symbol = Symbol;
-    }
-
-    public List<String> getProds() {
-        return Prods;
-    }
-
-    public void setProds(List<String> Prods) {
-        this.Prods = Prods;
+    public boolean isTerminal() {
+        return Terminal;
     }
 }
