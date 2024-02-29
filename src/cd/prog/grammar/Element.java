@@ -24,19 +24,25 @@ package cd.prog.grammar;
  * @author yedhu
  */
 public class Element {
-
+    
     private final Character symbol;
     private final boolean Terminal;
-
+    private final boolean epsilon;
+    
     public Element(Character in) {
         this.symbol = in;
-        this.Terminal = Character.isLowerCase(in);
+        this.Terminal = Character.isLowerCase(in) || in.equals('-');
+        this.epsilon = in.equals('-');
     }
 
+    public boolean isEpsilon() {
+        return epsilon;
+    }
+    
     public Character getSymbol() {
         return symbol;
     }
-
+    
     public boolean isTerminal() {
         return Terminal;
     }

@@ -28,6 +28,7 @@ public class Rule {
 
     private final Element Gen_Symbol;
     private List<List<Element>> Productions = new LinkedList<>();
+    private List<Element> First;
 
     public Rule(String in) {
         String[] a = in.split(">");
@@ -50,6 +51,10 @@ public class Rule {
         return Productions;
     }
 
+    public List<Element> getFirst() {
+        return First;
+    }
+
     public void print_Rule() {
         System.out.print(Gen_Symbol.getSymbol() + ">");
         for (List<Element> rule : Productions) {
@@ -66,6 +71,9 @@ public class Rule {
         Character tempsym;
         for (int i = 0; i < n; i++) {
             tempsym = j.charAt(i);
+            if (i == 0) {
+                First.add(new Element(j.charAt(i)));
+            }
             tempprod.add(new Element(tempsym));
         }
         Productions.add(tempprod);

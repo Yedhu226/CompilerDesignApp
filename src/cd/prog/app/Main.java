@@ -28,14 +28,27 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Select the program to run: ");
-        System.out.printf("1. Left Recursion \n 2. Left Factoring \n");
+        System.out.printf("""
+                          1. First aand Follow 
+                          2. Predictive Parser 
+                          3. Left Recursion 
+                          4. Left Factoring 
+                          """);
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         switch (n) {
             case 1 -> {
+                First_Follow.main();
+            }
+            case 2 -> {
+
+            }
+            case 3 -> {
                 LeftRecursion.main();
             }
-
+            case 4 -> {
+                //code
+            }
         }
     }
 

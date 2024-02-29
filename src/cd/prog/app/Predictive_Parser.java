@@ -17,10 +17,10 @@
 package cd.prog.app;
 
 /**
- * This is the First Class.
+ * This is the Predictive_Parser class.
  *
  * @author yedhu
  */
-public class First {
+public class Predictive_Parser {
 
 }
