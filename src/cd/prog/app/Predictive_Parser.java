@@ -17,9 +17,10 @@
 package cd.prog.app;
 
 /**
+ * This is the Predictive_Parser class.
  *
  * @author yedhu
  */
-public class Follow {
-    
+public class Predictive_Parser {
+
 }

@@ -17,23 +17,32 @@
 package cd.prog.grammar;
 
 /**
+ * This is the Element class. It describes each individual character
+ * (Terminal/NonTerminal) in a production of a rule. Upper Case characters are
+ * considered Non Terminals.
  *
  * @author yedhu
  */
 public class Element {
-
+    
     private final Character symbol;
     private final boolean Terminal;
-
+    private final boolean epsilon;
+    
     public Element(Character in) {
         this.symbol = in;
-        this.Terminal=Character.isLowerCase(in);
+        this.Terminal = Character.isLowerCase(in) || in.equals('-');
+        this.epsilon = in.equals('-');
     }
 
+    public boolean isEpsilon() {
+        return epsilon;
+    }
+    
     public Character getSymbol() {
         return symbol;
     }
-
+    
     public boolean isTerminal() {
         return Terminal;
     }

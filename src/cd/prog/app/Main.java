@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2024 yedhu
  *
@@ -19,6 +20,7 @@ package cd.prog.app;
 import java.util.Scanner;
 
 /**
+ * This is where the App starts, the program needed can be called here.
  *
  * @author yedhu
  */
@@ -26,16 +28,28 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Select the program to run: ");
-        System.out.printf("1. Left Recursion \n 2. Left Factoring \n");
-        Scanner sc=new Scanner(System.in);
-        int n=sc.nextInt();
-        switch(n){
+        System.out.printf("""
+                          1. First aand Follow 
+                          2. Predictive Parser 
+                          3. Left Recursion 
+                          4. Left Factoring 
+                          """);
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        switch (n) {
             case 1 -> {
-                LeftRecursion lr1=new LeftRecursion();
-                lr1.main();
+                First_Follow.main();
             }
-                
+            case 2 -> {
+
+            }
+            case 3 -> {
+                LeftRecursion.main();
+            }
+            case 4 -> {
+                //code
+            }
         }
     }
-    
+
 }

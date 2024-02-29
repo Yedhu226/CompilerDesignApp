@@ -16,23 +16,29 @@
  */
 package cd.prog.grammar;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
 
 /**
+ * This is the Grammar class which allows objects to be created to describe a
+ * grammar with set rules.
  *
  * @author yedhu
  */
 public class Grammar {
-    private List<Rule> Rule_List=new LinkedList<>();
 
-    public List<Rule> getRule_List() {
+    private final Map<Element, Rule> Rule_List;
+    private final Element Start_Symbol;
+
+    public Element getStart_Symbol() {
+        return Start_Symbol;
+    }
+
+    public Map<Element,Rule> getRule_List() {
         return Rule_List;
     }
-
-    public void setRule_List(List<Rule> Rule_List) {
-        this.Rule_List = Rule_List;
-    }
-
     
+    public Grammar(Element start, Map<Element, Rule> rules){
+        this.Start_Symbol=start;
+        this.Rule_List=rules;
+    }
 }
