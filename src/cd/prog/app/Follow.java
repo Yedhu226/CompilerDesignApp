@@ -17,9 +17,10 @@
 package cd.prog.app;
 
 /**
+ * This is the Follow class.
  *
  * @author yedhu
  */
 public class Follow {
-    
+
 }

@@ -20,30 +20,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This is the Rule class which contains each individual Rule in a grammar.
  *
  * @author yedhu
  */
 public class Rule {
 
     private final Element Gen_Symbol;
-    private List<List<Element>> Productions=new LinkedList<>();
+    private List<List<Element>> Productions = new LinkedList<>();
 
-    public Rule(String in){
-        String[] a=in.split(">");
-        Character t=a[0].charAt(0);
-        this.Gen_Symbol=new Element(t);
-        String b=a[1];
-        a=b.split("\\|");
+    public Rule(String in) {
+        String[] a = in.split(">");
+        Character t = a[0].charAt(0);
+        this.Gen_Symbol = new Element(t);
+        String b = a[1];
+        a = b.split("\\|");
         int n;
-        for(String j:a){
-            n=j.length();
-            List<Element> tempprod=new LinkedList<>();
-            Character tempsym;
-            for(int i=0;i<n;i++){
-                tempsym= j.charAt(i);
-                tempprod.add(new Element(tempsym));
-            }
-            Productions.add(tempprod);
+        for (String j : a) {
+            addRule(j);
+
         }
     }
 
@@ -54,14 +49,25 @@ public class Rule {
     public List<List<Element>> getProductions() {
         return Productions;
     }
-    
-    public void print_Rule(){
-        System.out.print(Gen_Symbol.getSymbol()+">");
-        for(List<Element> rule: Productions){
-            for(Element ele:rule){
+
+    public void print_Rule() {
+        System.out.print(Gen_Symbol.getSymbol() + ">");
+        for (List<Element> rule : Productions) {
+            for (Element ele : rule) {
                 System.out.print(ele.getSymbol());
             }
             System.out.print("|");
         }
+    }
+
+    public void addRule(String j) {
+        int n = j.length();
+        List<Element> tempprod = new LinkedList<>();
+        Character tempsym;
+        for (int i = 0; i < n; i++) {
+            tempsym = j.charAt(i);
+            tempprod.add(new Element(tempsym));
+        }
+        Productions.add(tempprod);
     }
 }

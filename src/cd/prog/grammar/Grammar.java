@@ -20,11 +20,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * This is the Grammar class which allows objects to be created to describe a
+ * grammar with set rules.
  *
  * @author yedhu
  */
 public class Grammar {
-    private List<Rule> Rule_List=new LinkedList<>();
+
+    private List<Rule> Rule_List = new LinkedList<>();
+    private Element Start_Symbol = new Element('S');
 
     public List<Rule> getRule_List() {
         return Rule_List;
@@ -34,5 +38,4 @@ public class Grammar {
         this.Rule_List = Rule_List;
     }
 
-    
 }

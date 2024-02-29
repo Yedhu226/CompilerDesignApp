@@ -17,6 +17,9 @@
 package cd.prog.grammar;
 
 /**
+ * This is the Element class. It describes each individual character
+ * (Terminal/NonTerminal) in a production of a rule. Upper Case characters are
+ * considered Non Terminals.
  *
  * @author yedhu
  */
@@ -27,7 +30,7 @@ public class Element {
 
     public Element(Character in) {
         this.symbol = in;
-        this.Terminal=Character.isLowerCase(in);
+        this.Terminal = Character.isLowerCase(in);
     }
 
     public Character getSymbol() {

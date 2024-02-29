@@ -20,17 +20,23 @@ import cd.prog.grammar.Rule;
 import java.util.Scanner;
 
 /**
+ * This is the Left Recursion class which contains the methods to remove left
+ * recursion in a rule or a grammar via the overridden function remove.
  *
  * @author yedhu
  */
 public class LeftRecursion {
 
-    public void main() {
+    public static void main() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Production in the format [Symbol]>[prod]|[prod]... \n Epsilon is denoted by '-'");
         String in = sc.nextLine();
         Rule p1 = new Rule(in);
         System.out.println();
         p1.print_Rule();
+    }
+
+    public static void remove(Rule rin) {
+
     }
 }
