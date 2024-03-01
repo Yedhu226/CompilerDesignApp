@@ -20,10 +20,10 @@ import cd.prog.grammar.Element;
 import cd.prog.grammar.Grammar;
 import cd.prog.grammar.Rule;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * This is the First_Follow Class.
@@ -32,32 +32,12 @@ import java.util.Scanner;
  */
 public class First_Follow {
 
-    private static Map<Element, List<Element>> First = new HashMap<>();
-    private static Map<Element, List<Element>> Follow = new HashMap<>();
-
     public static void main() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Production in the format [Symbol]>[prod]|[prod]... \n Epsilon is denoted by '-'");
         System.out.println("Enter the no. of rules in grammar: ");
         int n = sc.nextInt();
-        Map<Element, Rule> temp = new HashMap<>();
-        String r;
-        Element start = new Element('S');
-        for (int i = 0; i < n; i++) {
-            r = sc.nextLine();
-            if (i == 0) {
-                start = new Element(r.charAt(0));
-            }
-            temp.put(new Element(r.charAt(0)), new Rule(r));
-        }
-        Grammar Gin = new Grammar(start, temp);
-        get_First(Gin, true);
+        Grammar Gin = new Grammar(n);
+        Gin.print_First();
     }
-
-    public static void get_First(Grammar G, boolean print) {
-        for (Map.Entry<Element, Rule> r : G.getRule_List().entrySet()) {
-            Rule t=r.getValue();
-        }
-    }
-
 }
