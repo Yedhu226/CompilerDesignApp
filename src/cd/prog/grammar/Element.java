@@ -46,4 +46,11 @@ public class Element {
     public boolean isTerminal() {
         return Terminal;
     }
+    
+    public boolean equals(Element e){
+        return this.symbol.equals(e.getSymbol());
+    }
+    public void print(){
+        System.out.print(this.symbol);
+    }
 }

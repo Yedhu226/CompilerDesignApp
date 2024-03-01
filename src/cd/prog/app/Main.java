@@ -29,7 +29,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Select the program to run: ");
         System.out.printf("""
-                          1. First aand Follow 
+                          1. First and Follow 
                           2. Predictive Parser 
                           3. Left Recursion 
                           4. Left Factoring 

@@ -16,8 +16,10 @@
  */
 package cd.prog.grammar;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This is the Rule class which contains each individual Rule in a grammar.
@@ -28,7 +30,7 @@ public class Rule {
 
     private final Element Gen_Symbol;
     private List<List<Element>> Productions = new LinkedList<>();
-    private List<Element> First;
+    private Set<Element> First=new HashSet<>();
 
     public Rule(String in) {
         String[] a = in.split(">");
@@ -51,7 +53,7 @@ public class Rule {
         return Productions;
     }
 
-    public List<Element> getFirst() {
+    public Set<Element> getFirst() {
         return First;
     }
 
