@@ -17,6 +17,8 @@
 package cd.prog.grammar;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -48,20 +50,10 @@ public class Grammar {
         for (Map.Entry<Element, Rule> ru : Rule_List.entrySet()) {
             Rule t = ru.getValue();
             Set<Element> f = t.getFirst();
-            First.put(ru.getKey(), f);
+            this.First.put(ru.getKey(), f);
+            cons_Follow(t);
         }
-        for (Map.Entry<Element, Set<Element>> e : First.entrySet()) {
-            for (Element x : e.getValue()) {
-                if (!x.isTerminal()) {
-                    e.getValue().remove(x);
-                    for (Element y : First.keySet()) {
-                        if (y.equals(x)) {
-                            e.getValue().addAll(First.get(y));
-                        }
-                    }
-                }
-            }
-        }
+        calc_First();
     }
 
     public Grammar(int rule_no) {
@@ -69,31 +61,82 @@ public class Grammar {
         Map<Element, Rule> temp = new HashMap<>();
         String r;
         Element start = new Element('S');
-        for (int i = 0; i < rule_no; i++) {
+        for (int x = 0; x < rule_no; x++) {
 //            System.out.println(i);
             r = sc.nextLine();
-            if (i == 0) {
+            if (x == 0) {
                 start = new Element(r.charAt(0));
             }
             Element e = new Element(r.charAt(0));
             Rule tr = new Rule(r);
             Set<Element> f = tr.getFirst();
-            First.put(e, f);
+            this.First.put(e, f);
+            cons_Follow(tr);
             temp.put(e, new Rule(r));
         }
         this.Rule_List = temp;
         this.Start_Symbol = start;
-        for (Map.Entry<Element, Set<Element>> e : First.entrySet()) {
+        calc_First();
+    }
+
+    void calc_First() {
+        for (Map.Entry<Element, Set<Element>> e : this.First.entrySet()) {
             for (Element x : e.getValue()) {
                 if (!x.isTerminal()) {
                     e.getValue().remove(x);
-                    for (Element y : First.keySet()) {
+                    for (Element y : this.First.keySet()) {
                         if (y.equals(x)) {
-                            e.getValue().addAll(First.get(y));
+                            e.getValue().addAll(this.First.get(y));
                         }
                     }
                 }
             }
+        }
+    }
+
+    void cons_Follow(Rule t) {
+        for (List<Element> l : t.getProductions()) {
+            Element i = null;
+            for (Element j : l) {
+                if (i != null) {
+                    if (!i.isTerminal()) {
+                        if (this.Follow.containsKey(i)) {
+                            Set<Element> temp = Follow.get(i);
+                            temp.add(j);
+                            this.Follow.put(i, temp);
+                        } else {
+                            Set<Element> temp = new HashSet<>();
+                            temp.add(j);
+                            this.Follow.put(i, temp);
+                        }
+                    }
+                }
+                i = j;
+            }
+            if (!i.isTerminal()) {
+                Element j=t.getGen_Symbol();
+                if (this.Follow.containsKey(i)) {
+                    for (Element y : this.Follow.keySet()) {
+                        if (y.equals(i)) {
+                            Set<Element> temp = Follow.get(t.getGen_Symbol());
+                            temp.add(j);
+                        }
+                    }
+                    Set<Element> temp = Follow.get(t.getGen_Symbol());
+                    temp.add(j);
+                    this.Follow.put(i, temp);
+                } else {
+                    Set<Element> temp = new HashSet<>();
+                    temp.add(j);
+                    this.Follow.put(i, temp);
+                }
+            }
+        }
+    }
+
+    void calc_Follow() {
+        for (Map.Entry<Element, Rule> e : this.Rule_List.entrySet()) {
+
         }
     }
 
