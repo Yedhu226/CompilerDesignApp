@@ -14,26 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cd.prog.app;
+package cd.prog.grammar;
 
-import cd.prog.grammar.Grammar;
-import java.util.Scanner;
+import java.util.List;
 
 /**
- * This is the First_Follow Class.
  *
  * @author yedhu
  */
-public class First_Follow {
+public class SingleRule extends Rule {
 
-    public static void main() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Production in the format [Symbol]>[prod]|[prod]... \n Epsilon is denoted by '-'");
-        System.out.println("Enter the no. of rules in grammar: ");
-        int n = sc.nextInt();
-        Grammar Gin = new Grammar(n);
-        Gin.print_First();
-//        Gin.print_Grammar();
-        Gin.print_Follow();
+    public SingleRule(Rule r, boolean ep) {
+        super(r.getGen_Symbol(), r.getProductions(), ep);
     }
 }
