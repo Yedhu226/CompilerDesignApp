@@ -19,6 +19,7 @@ package cd.prog.grammar;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -28,17 +29,78 @@ import java.util.Set;
  */
 public class Rule {
 
-    private final Element Gen_Symbol;
+    private Element Gen_Symbol;
     private List<List<Element>> Productions = new LinkedList<>();
-    private Set<Element> First=new HashSet<>();
+    private Set<Element> First = new HashSet<>();
+    private Set<Element> terminals = new HashSet<>();
+    private Set<Element> non_terminals = new HashSet<>();
+    private Element epsilon = null;
 
     public Rule(String in) {
         String[] a = in.split(">");
         Character t = a[0].charAt(0);
-        this.Gen_Symbol = new Element(t);
+        this.Gen_Symbol = Element.create(t);
         String b = a[1];
         a = b.split("\\|");
-        int n;
+        for (String j : a) {
+            addRule(j);
+        }
+    }
+
+    public Rule(Element Gen, List<List<Element>> Prod, boolean ep) {
+        this.Gen_Symbol = Gen;
+        for (List<Element> l : Prod) {
+            if (l.contains(epsilon) && !ep) {
+                Prod.remove(l);
+                break;
+            }
+            else if(!l.contains(epsilon)&& ep){
+                Prod.remove(l);
+            }
+        }
+        this.Productions = Prod;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.Gen_Symbol);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rule other = (Rule) obj;
+        return Objects.equals(this.Gen_Symbol, other.Gen_Symbol);
+    }
+
+    @Override
+    public String toString() {
+        String s="";
+        for(List<Element> l: Productions){
+            s=s+l;
+        }
+        return Gen_Symbol + "->" + s;
+    }
+
+    public Rule() {
+        //def
+    }
+
+    public void append(String in) {
+        String[] a = in.split(">");
+        String b = a[1];
+        a = b.split("\\|");
         for (String j : a) {
             addRule(j);
 
@@ -58,13 +120,18 @@ public class Rule {
     }
 
     public void print_Rule() {
+        int i = 0;
         System.out.print(Gen_Symbol.getSymbol() + ">");
         for (List<Element> rule : Productions) {
+            if (i > 0) {
+                System.out.print("|");
+            }
             for (Element ele : rule) {
                 System.out.print(ele.getSymbol());
             }
-            System.out.print("|");
+            i++;
         }
+        System.out.println();
     }
 
     public void addRule(String j) {
@@ -73,11 +140,32 @@ public class Rule {
         Character tempsym;
         for (int i = 0; i < n; i++) {
             tempsym = j.charAt(i);
+            Element el = Element.create(tempsym);
             if (i == 0) {
-                First.add(new Element(j.charAt(i)));
+                First.add(el);
             }
-            tempprod.add(new Element(tempsym));
+            tempprod.add(el);
+            if (el.isTerminal()) {
+                terminals.add(el);
+            } else {
+                non_terminals.add(el);
+            }
+            if (el.isEpsilon()) {
+                epsilon = el;
+            }
         }
         Productions.add(tempprod);
+    }
+
+    public Element getEpsilon() {
+        return epsilon;
+    }
+
+    public Set<Element> getTerminals() {
+        return terminals;
+    }
+
+    public Set<Element> getNon_terminals() {
+        return non_terminals;
     }
 }

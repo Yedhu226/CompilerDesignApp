@@ -41,7 +41,7 @@ public class Main {
                 First_Follow.main();
             }
             case 2 -> {
-
+                Predictive_Parser.main();
             }
             case 3 -> {
                 LeftRecursion.main();

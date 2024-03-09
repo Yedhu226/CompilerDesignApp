@@ -16,11 +16,23 @@
  */
 package cd.prog.app;
 
+import cd.prog.grammar.Grammar;
+import cd.prog.parser.Predictive;
+import java.util.Scanner;
+
 /**
  * This is the Predictive_Parser class.
  *
  * @author yedhu
  */
 public class Predictive_Parser {
-
+    public static void main(){
+         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Production in the format [Symbol]>[prod]|[prod]... \n Epsilon is denoted by '-'");
+        System.out.println("Enter the no. of rules in grammar: ");
+        int n = sc.nextInt();
+        Grammar Gin = new Grammar(n);
+        Predictive P=new Predictive(Gin);
+        P.print_Table();
+    }
 }

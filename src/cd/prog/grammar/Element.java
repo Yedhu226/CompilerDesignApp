@@ -16,6 +16,9 @@
  */
 package cd.prog.grammar;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This is the Element class. It describes each individual character
  * (Terminal/NonTerminal) in a production of a rule. Upper Case characters are
@@ -24,33 +27,66 @@ package cd.prog.grammar;
  * @author yedhu
  */
 public class Element {
-    
-    private final Character symbol;
-    private final boolean Terminal;
-    private final boolean epsilon;
-    
+
+    private Character symbol;
+    private boolean Terminal;
+    private boolean epsilon;
+    private static Map<Character, Element> Element_Memory = new HashMap<>();
+    private static Element ep=Element.create('-');
+
+    public static Element getEp() {
+        return ep;
+    }
+
     public Element(Character in) {
         this.symbol = in;
-        this.Terminal = Character.isLowerCase(in) || in.equals('-');
         this.epsilon = in.equals('-');
+        this.Terminal = this.epsilon || !Character.isUpperCase(in);
+    }
+
+    static void addElement(Element e) {
+        Element_Memory.put(e.getSymbol(), e);
+    }
+
+    static Element getElement(Character in) {
+        return Element_Memory.get(in);
+    }
+
+    public static Element create(Character in) {
+        if (!Element.exist(in)) {
+            Element e = new Element(in);
+            Element_Memory.put(in, e);
+            return e;
+        }
+        return Element.getElement(in);
+    }
+
+    public static boolean exist(Character in) {
+        return Element_Memory.containsKey(in);
     }
 
     public boolean isEpsilon() {
         return epsilon;
     }
-    
+
     public Character getSymbol() {
         return symbol;
     }
-    
+
     public boolean isTerminal() {
         return Terminal;
     }
-    
-    public boolean equals(Element e){
+
+    public boolean equals(Element e) {
         return this.symbol.equals(e.getSymbol());
     }
-    public void print(){
+
+    public void print() {
         System.out.print(this.symbol);
+    }
+
+    @Override
+    public String toString() {
+        return "" + symbol;
     }
 }
