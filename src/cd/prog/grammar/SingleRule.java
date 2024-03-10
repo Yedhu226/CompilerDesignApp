@@ -16,15 +16,13 @@
  */
 package cd.prog.grammar;
 
-import java.util.List;
-
 /**
  *
  * @author yedhu
  */
 public class SingleRule extends Rule {
 
-    public SingleRule(Rule r, boolean ep) {
-        super(r.getGen_Symbol(), r.getProductions(), ep);
+    public SingleRule(Rule r, boolean ep, Element e) {
+        super(r.getGen_Symbol(), r.getProductions(), ep, e);
     }
 }

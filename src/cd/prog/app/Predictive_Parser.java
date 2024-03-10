@@ -32,6 +32,8 @@ public class Predictive_Parser {
         System.out.println("Enter the no. of rules in grammar: ");
         int n = sc.nextInt();
         Grammar Gin = new Grammar(n);
+        Gin.print_First();
+        Gin.print_Follow();
         Predictive P=new Predictive(Gin);
         P.print_Table();
     }
