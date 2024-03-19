@@ -33,7 +33,19 @@ import java.util.Set;
  */
 public class Grammar {
 
-    private final Map<Element, Rule> Rule_List;
+    private Map<Element, Rule> Rule_List;
+
+    public void setRule_List(Map<Element, Rule> Rule_List) {
+        this.Rule_List = Rule_List;
+    }
+
+    public void setTerminals(Set<Element> terminals) {
+        this.terminals = terminals;
+    }
+
+    public void setNon_terminals(List<Element> non_terminals) {
+        this.non_terminals = non_terminals;
+    }
     private Element Start_Symbol;
     private final Element end_sym = Element.create('$');
     private final Map<Element, Set<Element>> First = new HashMap<>();
@@ -69,7 +81,6 @@ public class Grammar {
         Map<Element, Rule> temp = new HashMap<>();
         String r;
         for (int x = 0; x < rule_no; x++) {
-//            System.out.println(i);
             r = sc.nextLine();
             if (x == 0) {
                 this.Start_Symbol = Element.create(r.charAt(0));
@@ -111,25 +122,12 @@ public class Grammar {
         setFollow();
     }
 
-    public Map<Element, Set<Element>> getFirst() {
-        return First;
-    }
-
-    public Map<Element, Set<Element>> getFollow() {
-        return Follow;
-    }
-
-    public Set<Element> getTerminals() {
-        return terminals;
-    }
-
-    public List<Element> getNon_terminals() {
-        return non_terminals;
-    }
-
     void calc_First() {
         for (Map.Entry<Element, Set<Element>> e : this.First.entrySet()) {
             for (Element x : e.getValue()) {
+                if(e.getKey()==x){
+                    continue;
+                }
                 if (!x.isTerminal()) {
                     e.getValue().remove(x);
                     if (Rule_List.get(x).getEpsilon() != null) {
@@ -218,7 +216,7 @@ public class Grammar {
                         if (pointer.isTerminal()) {
                             tempfollow.add(pointer);
                             break;
-                        } else if (!pointer.isTerminal()&&pointer!=select) {
+                        } else if (!pointer.isTerminal() && pointer != select) {
                             tempfollow.addAll(First.get(pointer));
                             if (tempfollow.contains(Element.getEp())) {
                                 tempfollow.remove(Element.getEp());
@@ -301,5 +299,21 @@ public class Grammar {
             }
             System.out.print("}\n");
         }
+    }
+
+    public Map<Element, Set<Element>> getFirst() {
+        return First;
+    }
+
+    public Map<Element, Set<Element>> getFollow() {
+        return Follow;
+    }
+
+    public Set<Element> getTerminals() {
+        return terminals;
+    }
+
+    public List<Element> getNon_terminals() {
+        return non_terminals;
     }
 }

@@ -52,11 +52,11 @@ public class Rule {
         Element epe = Element.create('-');
         this.Gen_Symbol = Gen;
         this.Productions.addAll(Prod);
-        List<Element> x;
         for (List<Element> l : Productions) {
             if (!ep) {
-                if(l.contains(epe))
+                if (l.contains(epe)) {
                     Productions.remove(l);
+                }
                 break;
             } else if (ep) {
                 if (l.contains(epe)) {
@@ -65,54 +65,19 @@ public class Rule {
                 Productions.remove(l);
             }
         }
-        if(Productions.size()>1){
-            for(List<Element> l:Productions){
-                Queue<Element> q=new LinkedList<>(l);
-                if(!q.peek().equals(f)){
+        if (Productions.size() > 1) {
+            for (List<Element> l : Productions) {
+                Queue<Element> q = new LinkedList<>(l);
+                if (!q.peek().equals(f)) {
                     Productions.remove(l);
                 }
             }
         }
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 41 * hash + Objects.hashCode(this.Gen_Symbol);
-        return hash;
-    }
-
-    @Override
-    public String toString() {
-        String s = "";
-        int i = Productions.size();
-        for (List<Element> l : Productions) {
-            if (i != Productions.size() && i != 1) {
-                s = s + "|";
-            }
-            for (Element e : l) {
-                s = s + e;
-            }
-        }
-        return Gen_Symbol + "->" + s;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Rule other = (Rule) obj;
-        if (!Objects.equals(this.Gen_Symbol, other.Gen_Symbol)) {
-            return false;
-        }
-        return Objects.equals(this.Productions, other.Productions);
+    
+    public Rule(Element Gen, List<List<Element>> Prods){
+        this.Gen_Symbol=Gen;
+        this.Productions=new LinkedList<>(Prods);
     }
 
     public void append(String in) {
@@ -185,5 +150,45 @@ public class Rule {
 
     public Set<Element> getNon_terminals() {
         return non_terminals;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.Gen_Symbol);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        int i = Productions.size();
+        for (List<Element> l : Productions) {
+            if (i != Productions.size() && i != 1) {
+                s = s + "|";
+            }
+            for (Element e : l) {
+                s = s + e;
+            }
+        }
+        return Gen_Symbol + "->" + s;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rule other = (Rule) obj;
+        if (!Objects.equals(this.Gen_Symbol, other.Gen_Symbol)) {
+            return false;
+        }
+        return Objects.equals(this.Productions, other.Productions);
     }
 }
