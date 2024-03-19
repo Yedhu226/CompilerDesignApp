@@ -16,6 +16,8 @@
  */
 package cd.prog.app;
 
+import cd.prog.grammar.Grammar;
+import cd.prog.grammar.Processed_Grammar;
 import cd.prog.grammar.Rule;
 import java.util.Scanner;
 
@@ -30,10 +32,9 @@ public class LeftRecursion {
     public static void main() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Production in the format [Symbol]>[prod]|[prod]... \n Epsilon is denoted by '-'");
-        String in = sc.nextLine();
-        Rule p1 = new Rule(in);
-        System.out.println();
-        p1.print_Rule();
+        System.out.println("Enter no. of rules: ");
+        int n = sc.nextInt();
+        Grammar G = new Processed_Grammar(n);
     }
 
     public static void remove(Rule rin) {

@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2024 yedhu
  *
@@ -17,39 +16,25 @@
  */
 package cd.prog.app;
 
+import cd.prog.grammar.Grammar;
+import cd.prog.parser.Shift_Reduce;
 import java.util.Scanner;
 
 /**
- * This is where the App starts, the program needed can be called here.
  *
  * @author yedhu
  */
-public class Main {
+public class Shift_Reduce_Parser {
 
-    public static void main(String[] args) {
-        System.out.println("Select the program to run: ");
-        System.out.printf("""
-                          1. First and Follow 
-                          2. Predictive Parser 
-                          3. Left Recursion and Factoring
-                          4. Shift-Reduce Parser 
-                          """);
+    public static void main() {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Production in the format [Symbol]>[prod]|[prod]... \n Epsilon is denoted by '-'");
+        System.out.println("Enter no. of rules: ");
         int n = sc.nextInt();
-        switch (n) {
-            case 1 -> {
-                First_Follow.main();
-            }
-            case 2 -> {
-                Predictive_Parser.main();
-            }
-            case 3 -> {
-                LeftRecursion.main();
-            }
-            case 4 -> {
-                Shift_Reduce_Parser.main();
-            }
-        }
+        Grammar G = new Grammar(n);
+        Shift_Reduce SR1=new Shift_Reduce(G);
+        System.out.println("Enter String to be parsed:");
+        String str=sc.next();
+        SR1.ParseString(str);
     }
-
 }
