@@ -33,6 +33,8 @@ public class Main {
                           2. Predictive Parser 
                           3. Left Recursion and Factoring
                           4. Shift-Reduce Parser 
+                          5. Leading and Trailing
+                          6. Intermediate Code Generation
                           """);
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -48,6 +50,15 @@ public class Main {
             }
             case 4 -> {
                 Shift_Reduce_Parser.main();
+            }
+            case 5 -> {
+                Leading_Trailing.main();
+            }
+            case 6 -> {
+                //code
+            }
+            default ->{
+                System.out.println("Option does not exist");
             }
         }
     }
