@@ -35,6 +35,7 @@ public class Main {
                           4. Shift-Reduce Parser 
                           5. Leading and Trailing
                           6. Intermediate Code Generation
+                          7. Infix to Prefix and Postfix
                           """);
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -56,6 +57,9 @@ public class Main {
             }
             case 6 -> {
                 //code
+            }
+            case 7 ->{
+                PrePostfix.main();
             }
             default ->{
                 System.out.println("Option does not exist");
