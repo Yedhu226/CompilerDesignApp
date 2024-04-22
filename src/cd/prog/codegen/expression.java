@@ -27,7 +27,7 @@ public class expression {
     private String result;
     private Character op;
     private Character arg1;
-    private Character arg2;
+    private Character arg2 = null;
 
     public expression(String result, Character arg1, Character op, Character arg2) {
         this.result = result;
@@ -44,10 +44,27 @@ public class expression {
 
     @Override
     public String toString() {
+        String arg = "";
+        String arga = this.arg1.toString();
+        String argb = "";
         if (arg2 != null) {
-            return result + "=" + arg1 + op + arg2;
+            argb = this.arg2.toString();
         }
-        return result + "=" + op + arg1;
+        if (Character.isUpperCase(arg1)) {
+            char x = arg1;
+            arga = "t" + ((int) (x) - 65);
+        }
+        if (arg2 != null && Character.isUpperCase(arg2)) {
+            char x = arg2;
+            argb = "t" + ((int) (x) - 65);
+        }
+        if (arg2 != null) {
+            return result + "=" + arga + op + argb;
+        }
+        if (op.equals('=')) {
+            return result + "" + op + arga;
+        }
+        return result + "= (u" + op + ") " + arga;
     }
 
     @Override
@@ -56,7 +73,6 @@ public class expression {
         hash = 79 * hash + Objects.hashCode(this.result);
         hash = 79 * hash + Objects.hashCode(this.op);
         hash = 79 * hash + Objects.hashCode(this.arg1);
-        hash = 79 * hash + Objects.hashCode(this.arg2);
         return hash;
     }
 
@@ -81,7 +97,10 @@ public class expression {
         if (!Objects.equals(this.arg1, other.arg1)) {
             return false;
         }
-        return Objects.equals(this.arg2, other.arg2);
+        if (this.arg2 == null || other.arg2 == null) {
+            return false;
+        }
+        return true;
     }
 
 }

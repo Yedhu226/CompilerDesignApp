@@ -31,6 +31,7 @@ import java.util.Stack;
 public class Intermediate_Code_Gen {
 
     private Map<Integer, expression> code = new HashMap<>();
+    private int n;
 
     static int get_Precedence(Character op) {
         if (op.equals('(')) {
@@ -45,15 +46,63 @@ public class Intermediate_Code_Gen {
         return 1;
     }
 
+    public Intermediate_Code_Gen(String s) {
+        Queue<Character> exp;
+        exp = postfixgen(s);
+        Stack<Character> eval = new Stack<>();
+//        int n=0;
+        int c = 0;
+        expression x;
+        String t;
+        while (!exp.isEmpty() || eval.size() > 1) {
+            if (eval.isEmpty() || (Character.isLetter(eval.peek()) && !exp.isEmpty())) {
+                eval.add(exp.poll());
+            }
+            if (!Character.isLetter(eval.peek())) {
+                Character op = eval.pop();
+                Character arg1;
+                Character arg2;
+                if (op.equals('-')) {
+                    t = "t" + c;
+                    arg1 = eval.pop();
+                    eval.push((char) ('A' + (char) (c)));
+                    eval.push('+');
+                    x = new expression(t, op, arg1);
+                    code.put(n, x);
+                    n++;
+                    c++;
+                } else {
+                    t = "t" + c;
+                    arg1 = eval.pop();
+                    arg2 = eval.pop();
+                    x = new expression(t, arg1, op, arg2);
+                    eval.push((char) ('A' + (char) (c)));
+                    code.put(n, x);
+                    n++;
+                    c++;
+                }
+            }
+        }
+        x = new expression("x", '=', eval.pop());
+        code.put(n, x);
+        n++;
+    }
+
+    public void print() {
+        for (int i = 0; i < n; i++) {
+            System.out.println(i + " | " + code.get(i));
+        }
+    }
+
     public static Queue<Character> prefixgen(String s) {
         Queue<Character> prefix;
         StringBuilder exptemp = new StringBuilder(s);
         exptemp.reverse();
         prefix = postfixgen(exptemp.toString());
-        List<Character> temp=new LinkedList<>();
+        List<Character> temp = new LinkedList<>();
         temp.addAll(prefix);
         prefix.clear();
-        for(Character e: reversed(temp)){
+        for (Character e : reversed(temp)) {
             prefix.add(e);
         }
         return prefix;

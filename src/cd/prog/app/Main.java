@@ -56,12 +56,12 @@ public class Main {
                 Leading_Trailing.main();
             }
             case 6 -> {
-                //code
+                IC_Generator.main();
             }
-            case 7 ->{
+            case 7 -> {
                 PrePostfix.main();
             }
-            default ->{
+            default -> {
                 System.out.println("Option does not exist");
             }
         }
